@@ -5,16 +5,22 @@ import Swal from "sweetalert2";
 import Modal from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import axios from "axios";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import Image from "next/image";
-const Article = () => {
+import TimePicker from "react-time-picker";
+import "react-time-picker/dist/TimePicker.css";
+import "react-clock/dist/Clock.css";
+const Klinik = () => {
   const jwt =
     "bearer " + JSON.parse(localStorage.getItem("userData")).data.data.jwToken;
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [name, setName] = useState("");
+  const [alamat, setAlamat] = useState("");
   const [file, setFile] = useState("");
-  const [category, setCategory] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [klinikOpen, setKlinikOpen] = useState("");
+  const [klinikClose, setKlinikClose] = useState("");
+  const [description, setDescription] = useState("");
   const [open, setOpen] = useState(false);
   const [data, setData] = useState(null);
   const [categories, setCategories] = useState(null);
@@ -22,13 +28,28 @@ const Article = () => {
 
   const handleSubmit = () => {
     let formData = new FormData();
-    formData.append("title", title);
-    formData.append("body", body);
+    formData.append("klinik_name", name);
+    formData.append("klinik_address", alamat);
     formData.append("image", file);
-    formData.append("category_id", category);
-    if (title && body && category && file) {
+    formData.append("klinik_phone", phone);
+    formData.append("password", password);
+    formData.append("klinik_email", email);
+    formData.append("klinik_open", klinikOpen);
+    formData.append("klinik_close", klinikClose);
+    formData.append("klinik_description", description);
+    if (
+      name &&
+      alamat &&
+      phone &&
+      file &&
+      password &&
+      email &&
+      klinikOpen &&
+      klinikClose &&
+      description
+    ) {
       axios({
-        url: "https://herbacare.tech/api/article/post",
+        url: "https://herbacare.tech/api/klinik/post",
         method: "post",
         headers: {
           authorization: jwt,
@@ -37,10 +58,15 @@ const Article = () => {
       })
         .then((res) => {
           Swal.fire("Sukses", "Data berhasil ditambahkan", "success");
-          setTitle(null);
-          setCategory(null);
+          setName(null);
+          setAlamat(null);
           setFile(null);
-          setBody(null);
+          setPassword(null);
+          setDescription(null);
+          setKlinikClose(null);
+          setKlinikOpen(null);
+          setEmail(null);
+          setPhone(null);
           setOpen(false);
           setSubmit(!submit);
         })
@@ -83,12 +109,12 @@ const Article = () => {
   };
 
   useEffect(() => {
-    axios.get("https://herbacare.tech/api/category/all").then((res) => {
+    axios.get("https://herbacare.tech/api/klinik/all").then((res) => {
       setCategories(res.data.data);
     });
   }, []);
   useEffect(() => {
-    axios.get("https://herbacare.tech/api/article/all").then((res) => {
+    axios.get("https://herbacare.tech/api/klinik/all").then((res) => {
       setData(res.data.data);
     });
   }, [submit]);
@@ -99,7 +125,7 @@ const Article = () => {
   return (
     <>
       <h1 className="md:text-4xl text-xl font-semibold capitalize py-8 text-primary-text">
-        Artikel EduTCAM
+        Daftar Klinik
       </h1>
       <div className="bg-white  py-12 px-8 rounded-xl shadow-sm overflow-x-auto overflow-y-auto max-h-[75vh]">
         <div className="flex justify-end gap-5">
@@ -115,7 +141,13 @@ const Article = () => {
           <thead className="text-left">
             <tr>
               <th className="capitalize text-secondary-text font-semibold w-96">
-                Judul
+                Nomor
+              </th>
+              <th className="capitalize text-secondary-text font-semibold w-96">
+                Nama Klinik
+              </th>
+              <th className="capitalize text-secondary-text font-semibold w-96">
+                Alamat
               </th>
               <th className="capitalize text-secondary-text font-semibold col-span-2 w-96">
                 Foto
@@ -132,12 +164,14 @@ const Article = () => {
                   key={i}
                   className="h-16 border-b border-b-2 border-b-gray-100 py-2"
                 >
-                  <td>{e.title}</td>
+                  <td>{i + 1}</td>
+                  <td>{e.klinik_name}</td>
+                  <td>{e.klinik_address}</td>
                   <td>
                     <Image
                       className="py-3"
-                      loader={() => "https://herbacare.tech/" + e.image}
-                      src={"https://herbacare.tech/" + e.image}
+                      loader={() => "https://herbacare.tech/" + e.klinik_image}
+                      src={"https://herbacare.tech/" + e.klinik_image}
                       width={200}
                       height={100}
                       alt={"Gambar " + e.title}
@@ -195,39 +229,101 @@ const Article = () => {
             Tambah Artikel
           </h2>
           <div className="flex flex-col">
-            <label htmlFor="title" className="mt-8 mb-2">
-              Judul
+            <label htmlFor="name" className="mt-8 mb-2">
+              Nama Klinik
             </label>
             <input
               type="text"
-              name="title"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              name="name"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
             />
-            <label htmlFor="title" className="mt-8 mb-2">
-              Judul
+            <label htmlFor="alamat" className="mt-8 mb-2">
+              Alamat
             </label>
-            <select
-              onChange={(e) => setCategory(e.target.value)}
-              className="border border-2 border-grey-accent p-3  rounded-xl duration-500 focus:border-primary-blue outline-none w-full cursor-pointer"
-            >
-              <option disabled selected value hidden>
-                {" "}
-                Pilih kategori
-              </option>
-              {categories.map((e, i) => (
-                <option key={i} value={e.category_id}>
-                  {e.category_name}
-                </option>
-              ))}
-            </select>
+            <input
+              type="text"
+              name="alamat"
+              id="alamat"
+              value={alamat}
+              onChange={(e) => setAlamat(e.target.value)}
+              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+            />
+            <label htmlFor="phone" className="mt-8 mb-2">
+              Nomor Telepon
+            </label>
+            <input
+              type="text"
+              name="phone"
+              id="phone"
+              value={phone}
+              onInput={(e) => {
+                const allowedKeys = /[0-9\b]/;
+                if (!allowedKeys.test(e.key)) {
+                  e.preventDefault();
+                }
+              }}
+              onChange={(e) => setPhone(e.target.value)}
+              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+            />
+            <label htmlFor="email" className="mt-8 mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+            />
+            <label htmlFor="password" className="mt-8 mb-2">
+              Password
+            </label>
+            <input
+              type="text"
+              name="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+            />
+            <label htmlFor="klinikOpen" className="mt-8 mb-2">
+              Jam Buka
+            </label>
+            <TimePicker
+              onChange={setKlinikOpen}
+              value={klinikOpen}
+              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+              format="hh:mm a"
+            />
+            <label htmlFor="klinikClose" className="mt-8 mb-2">
+              Jam Tutup
+            </label>
+            <TimePicker
+              onChange={setKlinikClose}
+              value={klinikClose}
+              // minTime={klinikOpen}
+              disabled={klinikOpen == null ? true : false}
+              clockClassName={"border-none"}
+              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+              format="hh:mm a"
+            />
 
-            <label htmlFor="name" className="mt-8 mb-2">
-              Body
+            <label htmlFor="description" className="mt-8 mb-2">
+              Deskripsi
             </label>
-            <ReactQuill id="body" name="body" theme="snow" onChange={setBody} />
+            <textarea
+              type="description"
+              name="description"
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+            />
+
             <label htmlFor="name" className="mt-8 mb-2">
               Foto
             </label>
@@ -252,4 +348,4 @@ const Article = () => {
   );
 };
 
-export default Article;
+export default Klinik;

@@ -8,6 +8,8 @@ import {
   BsGridFill,
   BsFillBellFill,
   BsBookHalf,
+  BsListTask,
+  BsHospitalFill,
 } from "react-icons/bs";
 import { useRouter } from "next/router";
 import jwtDecode from "jwt-decode";
@@ -102,14 +104,14 @@ const DashboardLayout = ({ children }) => {
               query="category"
               onClick={() => device == "mobile" && setIsOpen(false)}
             >
-              <BsFillFolderFill /> Category
+              <BsListTask /> Category
             </LinkItem>
             <LinkItem
               href="/admin/klinik"
               query="klinik"
               onClick={() => device == "mobile" && setIsOpen(false)}
             >
-              <BsFillFolderFill /> Klinik
+              <BsHospitalFill /> Klinik
             </LinkItem>
           </div>
         </div>

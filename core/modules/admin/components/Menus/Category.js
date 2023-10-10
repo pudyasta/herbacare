@@ -5,43 +5,32 @@ import Swal from "sweetalert2";
 import Modal from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import axios from "axios";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import Image from "next/image";
-const Article = () => {
+
+const Category = () => {
   const jwt =
     "bearer " + JSON.parse(localStorage.getItem("userData")).data.data.jwToken;
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [file, setFile] = useState("");
-  const [category, setCategory] = useState("");
+  const [kategori, setKategori] = useState("");
   const [open, setOpen] = useState(false);
   const [data, setData] = useState(null);
-  const [categories, setCategories] = useState(null);
   const [submit, setSubmit] = useState(false);
 
   const handleSubmit = () => {
-    let formData = new FormData();
-    formData.append("title", title);
-    formData.append("body", body);
-    formData.append("image", file);
-    formData.append("category_id", category);
-    if (title && body && category && file) {
+    if (kategori) {
       axios({
-        url: "https://herbacare.tech/api/article/post",
+        url: "https://herbacare.tech/api/categories/post",
         method: "post",
         headers: {
           authorization: jwt,
         },
-        data: formData,
+        data: {
+          category_name: kategori,
+        },
       })
         .then((res) => {
           Swal.fire("Sukses", "Data berhasil ditambahkan", "success");
-          setTitle(null);
-          setCategory(null);
-          setFile(null);
-          setBody(null);
           setOpen(false);
+          setKategori(null);
           setSubmit(!submit);
         })
         .catch((error) => {
@@ -64,7 +53,7 @@ const Article = () => {
   const handleDelete = (id) => {
     axios({
       method: "delete",
-      url: `https://herbacare.tech/api/article/delete/${id}`,
+      url: `https://herbacare.tech/api/categories/${id}`,
       headers: {
         authorization: jwt,
       },
@@ -84,22 +73,17 @@ const Article = () => {
 
   useEffect(() => {
     axios.get("https://herbacare.tech/api/category/all").then((res) => {
-      setCategories(res.data.data);
-    });
-  }, []);
-  useEffect(() => {
-    axios.get("https://herbacare.tech/api/article/all").then((res) => {
       setData(res.data.data);
     });
   }, [submit]);
 
-  if (!data || !categories) {
+  if (!data) {
     return <></>;
   }
   return (
     <>
       <h1 className="md:text-4xl text-xl font-semibold capitalize py-8 text-primary-text">
-        Artikel EduTCAM
+        List Kategori
       </h1>
       <div className="bg-white  py-12 px-8 rounded-xl shadow-sm overflow-x-auto overflow-y-auto max-h-[75vh]">
         <div className="flex justify-end gap-5">
@@ -114,11 +98,11 @@ const Article = () => {
         <table className="mt-10 table-auto w-full align-left border-spacing-2">
           <thead className="text-left">
             <tr>
+              <th className="capitalize text-secondary-text font-semibold col-span-2 w-96">
+                Nomor
+              </th>
               <th className="capitalize text-secondary-text font-semibold w-96">
                 Judul
-              </th>
-              <th className="capitalize text-secondary-text font-semibold col-span-2 w-96">
-                Foto
               </th>
               <th className="capitalize text-secondary-text font-semibold w-96">
                 Aksi
@@ -132,17 +116,9 @@ const Article = () => {
                   key={i}
                   className="h-16 border-b border-b-2 border-b-gray-100 py-2"
                 >
-                  <td>{e.title}</td>
-                  <td>
-                    <Image
-                      className="py-3"
-                      loader={() => "https://herbacare.tech/" + e.image}
-                      src={"https://herbacare.tech/" + e.image}
-                      width={200}
-                      height={100}
-                      alt={"Gambar " + e.title}
-                    />
-                  </td>
+                  <td>{i + 1}</td>
+                  <td>{e.category_name}</td>
+
                   <td className="max-w-[4rem]">
                     <Button
                       children="Edit"
@@ -173,7 +149,7 @@ const Article = () => {
                           confirmButtonText: "Ya",
                         }).then((result) => {
                           if (result.isConfirmed) {
-                            handleDelete(e.articles_id);
+                            handleDelete(e.category_id);
                             setData(data.filter((a) => a.id !== e.id));
                           }
                         });
@@ -192,51 +168,19 @@ const Article = () => {
           styles={{ modal: { padding: "50px 20px", width: "80vw" } }}
         >
           <h2 className="text-xl font-medium text-primary-blue">
-            Tambah Artikel
+            Tambah Kategori
           </h2>
           <div className="flex flex-col">
-            <label htmlFor="title" className="mt-8 mb-2">
-              Judul
+            <label htmlFor="kategori" className="mt-8 mb-2">
+              Nama Kategori
             </label>
             <input
               type="text"
-              name="title"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              name="kategori"
+              id="kategori"
+              value={kategori}
+              onChange={(e) => setKategori(e.target.value)}
               className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
-            />
-            <label htmlFor="title" className="mt-8 mb-2">
-              Judul
-            </label>
-            <select
-              onChange={(e) => setCategory(e.target.value)}
-              className="border border-2 border-grey-accent p-3  rounded-xl duration-500 focus:border-primary-blue outline-none w-full cursor-pointer"
-            >
-              <option disabled selected value hidden>
-                {" "}
-                Pilih kategori
-              </option>
-              {categories.map((e, i) => (
-                <option key={i} value={e.category_id}>
-                  {e.category_name}
-                </option>
-              ))}
-            </select>
-
-            <label htmlFor="name" className="mt-8 mb-2">
-              Body
-            </label>
-            <ReactQuill id="body" name="body" theme="snow" onChange={setBody} />
-            <label htmlFor="name" className="mt-8 mb-2">
-              Foto
-            </label>
-            <input
-              type="file"
-              name="title"
-              id="title"
-              onChange={(e) => setFile(e.target.files[0])}
-              className=" p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
             />
           </div>
           <Button
@@ -252,4 +196,4 @@ const Article = () => {
   );
 };
 
-export default Article;
+export default Category;
