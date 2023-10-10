@@ -1,15 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Button = ({ children, type, href, disabled, onClick, className }) => {
+const Button = ({
+  children,
+  type,
+  href,
+  disabled,
+  onClick,
+  className,
+  color,
+}) => {
   return (
     <button
       type="button"
       className={
         `${
           type == "outlined"
-            ? "bg-white border border-2 border-primary-blue text-primary-blue px-2"
-            : "bg-primary-blue text-white"
+            ? "bg-white border border-2 border-green-dark " + color
+              ? color
+              : "text-green-dark" + " px-2"
+            : color
+            ? color
+            : "text-white" + " bg-green-normal"
         } relative py-3  capitalize ` + className
       }
       onClick={onClick}

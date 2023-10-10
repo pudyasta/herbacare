@@ -9,11 +9,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "primary-blue": "#295FA6",
-        "secondary-blue": "#CCE3FF",
-        "primary-text": "#414141",
-        "secondary-text": "#9B9B9B",
-        "grey-accent": "#D9D9D9",
+        "green-dark": "#20270C",
+        "green-normal": "#718F2D",
+        "green-semilight": "#AAD60B",
+        "green-light": "#C7FF00",
+        "grey-500": "#6D7079",
+        "grey-200": "#B6B8BC",
+        "grey-50": "#F3F3F3",
       },
       backgroundImage: {
         "gradient-45": "linear-gradient(45deg, var(--tw-gradient-stops))",

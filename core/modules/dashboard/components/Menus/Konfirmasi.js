@@ -10,7 +10,7 @@ const Konfirmasi = () => {
   const [data, setData] = useState(null);
   useEffect(() => {
     axios
-      .get("https://scanocular.online/api/pemeriksaan/all")
+      .get("https://herbacare.tech/api/article/all")
       .then((res) => {
         console.log(res.data.data);
         setData(res.data.data);
@@ -102,10 +102,10 @@ const Konfirmasi = () => {
         </div>
       )}
       <h1 className="md:text-4xl text-xl font-semibold capitalize py-8 text-primary-text">
-        Permintaan konfirmasi Katarak
+        Jadwal Reservasi
       </h1>
       <div className="bg-white  py-12 px-8 rounded-xl shadow-sm overflow-x-auto overflow-y-auto max-h-[75vh]">
-        <div className="relative">
+        {/* <div className="relative">
           <button className="absolute text-2xl left-4 top-3">
             <BsSearch />
           </button>
@@ -116,9 +116,9 @@ const Konfirmasi = () => {
             id="data"
             className="w-full border border-2 border-grey-accent py-3 px-14 rounded-2xl duration-500 focus:border-primary-blue outline-none "
           />
-        </div>
+        </div> */}
 
-        <table className="mt-10 table-auto w-full align-left border-spacing-2">
+        <table className="table-auto w-full align-left border-spacing-2">
           <thead className="text-left">
             <th className="capitalize text-secondary-text font-semibold w-96">
               nama

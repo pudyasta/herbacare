@@ -4,7 +4,7 @@ import BasicLayout from "../../core/modules/common/BasicLayout";
 import { AdminItem, AdminLayout } from "../../core/modules/admin";
 
 const MenusAdmin = () => {
-  const routes = ["homeadmin", "dataartikel", "listdokter"];
+  const routes = ["home", "article", "category", "klinik"];
   const router = useRouter().query.slug;
   if (router == undefined) <></>;
 
