@@ -6,7 +6,7 @@ import BasicLayout from "../../core/modules/common/BasicLayout";
 const Menus = () => {
   const routes = [
     "home",
-    "datapasien",
+    "service",
     "konfirmasi",
     "glukoma",
     "diabetes",

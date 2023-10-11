@@ -1,7 +1,12 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import LinkItem from "../../common/LinkItem";
-import { BsGridFill, BsFillBellFill, BsEyeFill } from "react-icons/bs";
+import {
+  BsGridFill,
+  BsFillBellFill,
+  BsEyeFill,
+  BsGearFill,
+} from "react-icons/bs";
 import { useRouter } from "next/router";
 import jwtDecode from "jwt-decode";
 import { Button } from "../../common/button";
@@ -74,6 +79,14 @@ const DashboardLayout = ({ children }) => {
             >
               <BsEyeFill />
               Reservasi
+            </LinkItem>
+            <LinkItem
+              href="/dashboard/service"
+              query="service"
+              onClick={() => device == "mobile" && setIsOpen(false)}
+            >
+              <BsGearFill />
+              Service
             </LinkItem>
           </div>
         </div>
