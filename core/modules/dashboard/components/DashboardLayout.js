@@ -118,7 +118,7 @@ const DashboardLayout = ({ children }) => {
       </div>
       <div className="col-span-10 w-full bg-gray-50 h-screem">
         <div
-          className={`w-full bg-white h-20 flex  items-center md:px-12 px-8 text-xl flex justify-between duration-500`}
+          className={`w-full bg-white h-20  items-center md:px-12 px-8 text-xl flex justify-between duration-500`}
         >
           <button
             className={` text-2xl  bg-green-normal p-3 rounded-xl text-white duration-500 ease-out`}

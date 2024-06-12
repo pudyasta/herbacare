@@ -9,7 +9,7 @@ const MenusAdmin = () => {
   if (router == undefined) <></>;
 
   return routes.includes(router) ? (
-    <BasicLayout title={"Scanocular Dashboard | " + router.toLocaleUpperCase()}>
+    <BasicLayout title={"Naturecare Dashboard | " + router.toLocaleUpperCase()}>
       <AdminLayout>
         <AdminItem item={router} />
       </AdminLayout>

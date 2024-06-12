@@ -18,7 +18,7 @@ const Category = () => {
   const handleSubmit = () => {
     if (kategori) {
       axios({
-        url: "https://herbacare.tech/api/categories/post",
+        url: `${process.env.NEXT_PUBLIC_BE_URL}/api/categories/post`,
         method: "post",
         headers: {
           authorization: jwt,
@@ -53,7 +53,7 @@ const Category = () => {
   const handleDelete = (id) => {
     axios({
       method: "delete",
-      url: `https://herbacare.tech/api/categories/${id}`,
+      url: `${process.env.NEXT_PUBLIC_BE_URL}/api/categories/${id}`,
       headers: {
         authorization: jwt,
       },
@@ -72,9 +72,11 @@ const Category = () => {
   };
 
   useEffect(() => {
-    axios.get("https://herbacare.tech/api/category/all").then((res) => {
-      setData(res.data.data);
-    });
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BE_URL}/api/category/all`)
+      .then((res) => {
+        setData(res.data.data);
+      });
   }, [submit]);
 
   if (!data) {
@@ -112,29 +114,11 @@ const Category = () => {
           <tbody className="color-primary-text">
             {data.map((e, i) => {
               return (
-                <tr
-                  key={i}
-                  className="h-16 border-b border-b-2 border-b-gray-100 py-2"
-                >
+                <tr key={i} className="h-16  border-b-2 border-b-gray-100 py-2">
                   <td>{i + 1}</td>
                   <td>{e.category_name}</td>
 
                   <td className="max-w-[4rem]">
-                    <Button
-                      children="Edit"
-                      type="primary"
-                      className="rounded-xl text-sm py-2 px-5 bg-yellow-500 ml-1"
-                      onClick={() => {
-                        Swal.fire({
-                          title: "Revisi Data?",
-                          icon: "warning",
-                          showCancelButton: true,
-                          confirmButtonColor: "#3085d6",
-                          cancelButtonColor: "#d33",
-                          confirmButtonText: "Ya",
-                        });
-                      }}
-                    />
                     <Button
                       children="Hapus"
                       type="primary"
@@ -180,7 +164,7 @@ const Category = () => {
               id="kategori"
               value={kategori}
               onChange={(e) => setKategori(e.target.value)}
-              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+              className="border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
             />
           </div>
           <Button

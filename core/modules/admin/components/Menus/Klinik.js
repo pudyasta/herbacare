@@ -49,7 +49,7 @@ const Klinik = () => {
       description
     ) {
       axios({
-        url: "https://herbacare.tech/api/klinik/post",
+        url: `${process.env.NEXT_PUBLIC_BE_URL}/api/klinik/post`,
         method: "post",
         headers: {
           authorization: jwt,
@@ -90,7 +90,7 @@ const Klinik = () => {
   const handleDelete = (id) => {
     axios({
       method: "delete",
-      url: `https://herbacare.tech/api/article/delete/${id}`,
+      url: `${process.env.NEXT_PUBLIC_BE_URL}/api/article/delete/${id}`,
       headers: {
         authorization: jwt,
       },
@@ -109,14 +109,18 @@ const Klinik = () => {
   };
 
   useEffect(() => {
-    axios.get("https://herbacare.tech/api/klinik/all").then((res) => {
-      setCategories(res.data.data);
-    });
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BE_URL}/api/klinik/all`)
+      .then((res) => {
+        setCategories(res.data.data);
+      });
   }, []);
   useEffect(() => {
-    axios.get("https://herbacare.tech/api/klinik/all").then((res) => {
-      setData(res.data.data);
-    });
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BE_URL}/api/klinik/all`)
+      .then((res) => {
+        setData(res.data.data);
+      });
   }, [submit]);
 
   if (!data || !categories) {
@@ -160,39 +164,25 @@ const Klinik = () => {
           <tbody className="color-primary-text">
             {data.map((e, i) => {
               return (
-                <tr
-                  key={i}
-                  className="h-16 border-b border-b-2 border-b-gray-100 py-2"
-                >
+                <tr key={i} className="h-16 border-b-2 border-b-gray-100 py-2">
                   <td>{i + 1}</td>
                   <td>{e.klinik_name}</td>
                   <td>{e.klinik_address}</td>
                   <td>
                     <Image
                       className="py-3"
-                      loader={() => "https://herbacare.tech/" + e.klinik_image}
-                      src={"https://herbacare.tech/" + e.klinik_image}
+                      loader={() =>
+                        `${process.env.NEXT_PUBLIC_BE_URL}/` + e.klinik_image
+                      }
+                      src={
+                        `${process.env.NEXT_PUBLIC_BE_URL}/` + e.klinik_image
+                      }
                       width={200}
                       height={100}
                       alt={"Gambar " + e.title}
                     />
                   </td>
                   <td className="max-w-[4rem]">
-                    <Button
-                      children="Edit"
-                      type="primary"
-                      className="rounded-xl text-sm py-2 px-5 bg-yellow-500 ml-1"
-                      onClick={() => {
-                        Swal.fire({
-                          title: "Revisi Data?",
-                          icon: "warning",
-                          showCancelButton: true,
-                          confirmButtonColor: "#3085d6",
-                          cancelButtonColor: "#d33",
-                          confirmButtonText: "Ya",
-                        });
-                      }}
-                    />
                     <Button
                       children="Hapus"
                       type="primary"
@@ -238,7 +228,7 @@ const Klinik = () => {
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+              className="border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
             />
             <label htmlFor="alamat" className="mt-8 mb-2">
               Alamat
@@ -249,7 +239,7 @@ const Klinik = () => {
               id="alamat"
               value={alamat}
               onChange={(e) => setAlamat(e.target.value)}
-              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+              className="border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
             />
             <label htmlFor="phone" className="mt-8 mb-2">
               Nomor Telepon
@@ -266,7 +256,7 @@ const Klinik = () => {
                 }
               }}
               onChange={(e) => setPhone(e.target.value)}
-              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+              className="border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
             />
             <label htmlFor="email" className="mt-8 mb-2">
               Email
@@ -277,7 +267,7 @@ const Klinik = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+              className="border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
             />
             <label htmlFor="password" className="mt-8 mb-2">
               Password
@@ -288,7 +278,7 @@ const Klinik = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+              className="border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
             />
             <label htmlFor="klinikOpen" className="mt-8 mb-2">
               Jam Buka
@@ -296,7 +286,7 @@ const Klinik = () => {
             <TimePicker
               onChange={setKlinikOpen}
               value={klinikOpen}
-              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+              className="border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
               format="hh:mm a"
             />
             <label htmlFor="klinikClose" className="mt-8 mb-2">
@@ -308,7 +298,7 @@ const Klinik = () => {
               // minTime={klinikOpen}
               disabled={klinikOpen == null ? true : false}
               clockClassName={"border-none"}
-              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+              className="border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
               format="hh:mm a"
             />
 
@@ -321,7 +311,7 @@ const Klinik = () => {
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+              className="border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
             />
 
             <label htmlFor="name" className="mt-8 mb-2">

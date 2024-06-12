@@ -14,7 +14,7 @@ const HomeAdmin = () => {
       <h2 className="lg:text-4xl font-semibold">
         Selamat Datang Di Platform Dashboard{" "}
         <span className="text-5xl capitalize font-bold text-transparent bg-clip-text bg-gradient-45 from-[#718f2d] to-[#aad60b]">
-          Herbacare
+          Naturecare
         </span>
       </h2>
       <h3 className="leading-10 text-xl mt-5">

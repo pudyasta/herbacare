@@ -21,7 +21,7 @@ const Service = () => {
   const handleSubmit = () => {
     if (service && capacity) {
       axios({
-        url: "https://herbacare.tech/api/service/post",
+        url: `${process.env.NEXT_PUBLIC_BE_URL}/api/service/post`,
         method: "post",
         headers: {
           authorization: jwt,
@@ -58,7 +58,7 @@ const Service = () => {
   const handleDelete = (id) => {
     axios({
       method: "delete",
-      url: `https://herbacare.tech/api/categories/${id}`,
+      url: `${process.env.NEXT_PUBLIC_BE_URL}/api/categories/${id}`,
       headers: {
         authorization: jwt,
       },
@@ -78,7 +78,7 @@ const Service = () => {
 
   useEffect(() => {
     axios
-      .get("https://herbacare.tech/api/service/klinik/" + klinikId)
+      .get(`${process.env.NEXT_PUBLIC_BE_URL}/api/service/klinik/` + klinikId)
       .then((res) => {
         setData(res.data.data);
       });

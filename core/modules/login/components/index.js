@@ -12,7 +12,7 @@ const index = () => {
 
   const handleSubmit = () => {
     axios
-      .post("https://herbacare.tech/api/admin/login", {
+      .post(`${process.env.NEXT_PUBLIC_BE_URL}/api/admin/login/`, {
         email: email,
         password,
       })
@@ -24,7 +24,7 @@ const index = () => {
       .catch((e) => {
         if (e.response.data.errors.status == 401) {
           axios
-            .post("https://herbacare.tech/api/klinik/login", {
+            .post(`${process.env.NEXT_PUBLIC_BE_URL}/api/klinik/login`, {
               klinik_email: email,
               password,
             })
@@ -80,10 +80,10 @@ const index = () => {
         </div>
         <div className="form flex flex-col justify-center lg:px-20 px-5">
           <h2 className="text-5xl capitalize font-bold text-transparent bg-clip-text bg-gradient-45 from-[#718f2d] to-[#aad60b]">
-            Herbacare
+            Naturecare
           </h2>
           <h5 className="text-xl capitalize text-primary-text">
-            Temukan Solusi Herbal dengan Herbacare
+            Temukan Solusi Herbal dengan Naturecare
           </h5>
 
           <label htmlFor="email" className="mt-10 mb-2">

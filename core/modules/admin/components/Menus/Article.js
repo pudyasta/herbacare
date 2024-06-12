@@ -28,7 +28,7 @@ const Article = () => {
     formData.append("category_id", category);
     if (title && body && category && file) {
       axios({
-        url: "https://herbacare.tech/api/article/post",
+        url: `${process.env.NEXT_PUBLIC_BE_URL}/api/article/post`,
         method: "post",
         headers: {
           authorization: jwt,
@@ -64,7 +64,7 @@ const Article = () => {
   const handleDelete = (id) => {
     axios({
       method: "delete",
-      url: `https://herbacare.tech/api/article/delete/${id}`,
+      url: `${process.env.NEXT_PUBLIC_BE_URL}/api/article/delete/${id}`,
       headers: {
         authorization: jwt,
       },
@@ -83,14 +83,18 @@ const Article = () => {
   };
 
   useEffect(() => {
-    axios.get("https://herbacare.tech/api/category/all").then((res) => {
-      setCategories(res.data.data);
-    });
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BE_URL}/api/category/all`)
+      .then((res) => {
+        setCategories(res.data.data);
+      });
   }, []);
   useEffect(() => {
-    axios.get("https://herbacare.tech/api/article/all").then((res) => {
-      setData(res.data.data);
-    });
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BE_URL}/api/article/all`)
+      .then((res) => {
+        setData(res.data.data);
+      });
   }, [submit]);
 
   if (!data || !categories) {
@@ -128,37 +132,21 @@ const Article = () => {
           <tbody className="color-primary-text">
             {data.map((e, i) => {
               return (
-                <tr
-                  key={i}
-                  className="h-16 border-b border-b-2 border-b-gray-100 py-2"
-                >
+                <tr key={i} className="h-16 border-b-2 border-b-gray-100 py-2">
                   <td>{e.title}</td>
                   <td>
                     <Image
                       className="py-3"
-                      loader={() => "https://herbacare.tech/" + e.image}
-                      src={"https://herbacare.tech/" + e.image}
+                      loader={() =>
+                        `${process.env.NEXT_PUBLIC_BE_URL}/` + e.image
+                      }
+                      src={`${process.env.NEXT_PUBLIC_BE_URL}/` + e.image}
                       width={200}
                       height={100}
                       alt={"Gambar " + e.title}
                     />
                   </td>
                   <td className="max-w-[4rem]">
-                    <Button
-                      children="Edit"
-                      type="primary"
-                      className="rounded-xl text-sm py-2 px-5 bg-yellow-500 ml-1"
-                      onClick={() => {
-                        Swal.fire({
-                          title: "Revisi Data?",
-                          icon: "warning",
-                          showCancelButton: true,
-                          confirmButtonColor: "#3085d6",
-                          cancelButtonColor: "#d33",
-                          confirmButtonText: "Ya",
-                        });
-                      }}
-                    />
                     <Button
                       children="Hapus"
                       type="primary"
@@ -204,14 +192,14 @@ const Article = () => {
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+              className=" border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
             />
             <label htmlFor="title" className="mt-8 mb-2">
               Judul
             </label>
             <select
               onChange={(e) => setCategory(e.target.value)}
-              className="border border-2 border-grey-accent p-3  rounded-xl duration-500 focus:border-primary-blue outline-none w-full cursor-pointer"
+              className=" border-2 border-grey-accent p-3  rounded-xl duration-500 focus:border-primary-blue outline-none w-full cursor-pointer"
             >
               <option disabled selected value hidden>
                 {" "}

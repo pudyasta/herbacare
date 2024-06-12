@@ -10,7 +10,7 @@ const Konfirmasi = () => {
   const [data, setData] = useState(null);
   useEffect(() => {
     axios
-      .get("https://herbacare.tech/api/article/all")
+      .get(`${process.env.NEXT_PUBLIC_BE_URL}/api/article/all`)
       .then((res) => {
         console.log(res.data.data);
         setData(res.data.data);
