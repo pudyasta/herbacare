@@ -90,7 +90,7 @@ const Klinik = () => {
   const handleDelete = (id) => {
     axios({
       method: "delete",
-      url: `${process.env.NEXT_PUBLIC_BE_URL}/api/article/delete/${id}`,
+      url: `${process.env.NEXT_PUBLIC_BE_URL}/api/klinik/${id}`,
       headers: {
         authorization: jwt,
       },
@@ -100,6 +100,7 @@ const Klinik = () => {
         setSubmit(!submit);
       })
       .catch((e) => {
+        console.log(e);
         Swal.fire(
           "Gagal",
           "Sedang terjadi galat silahakan coba kembali",
@@ -197,8 +198,8 @@ const Klinik = () => {
                           confirmButtonText: "Ya",
                         }).then((result) => {
                           if (result.isConfirmed) {
-                            handleDelete(e.articles_id);
-                            setData(data.filter((a) => a.id !== e.id));
+                            handleDelete(e.klinik_id);
+                            setData(data.filter((a) => a.id !== e.klinik_id));
                           }
                         });
                       }}
