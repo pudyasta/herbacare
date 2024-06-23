@@ -216,7 +216,7 @@ const Klinik = () => {
           styles={{ modal: { padding: "50px 20px", width: "80vw" } }}
         >
           <h2 className="text-xl font-medium text-primary-blue">
-            Tambah Artikel
+            Tambah Klinik
           </h2>
           <div className="flex flex-col">
             <label htmlFor="name" className="mt-8 mb-2">
