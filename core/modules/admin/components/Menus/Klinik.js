@@ -197,7 +197,7 @@ const Klinik = () => {
                           confirmButtonText: "Ya",
                         }).then((result) => {
                           if (result.isConfirmed) {
-                            handleDelete(e.articles_id);
+                            handleDelete(result.articles_id);
                             setData(data.filter((a) => a.id !== e.id));
                           }
                         });
