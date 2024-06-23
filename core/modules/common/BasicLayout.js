@@ -5,7 +5,7 @@ const BasicLayout = (props) => {
   return (
     <>
       <Head>
-        <title>{props.title || "Herbacare Dashboard"}</title>
+        <title>{props.title || "Naturecare Dashboard"}</title>
         <link
           rel="icon"
           sizes="16x16 32x32 64x64"

@@ -139,7 +139,7 @@ const Klinik = () => {
             className=" rounded-xl q px-3 text-sm font-semibold"
             onClick={() => setOpen(true)}
           >
-            Tambah Artikel
+            Tambah Klinik
           </Button>
         </div>
         <table className="mt-10 table-auto w-full align-left border-spacing-2">
@@ -217,7 +217,7 @@ const Klinik = () => {
           styles={{ modal: { padding: "50px 20px", width: "80vw" } }}
         >
           <h2 className="text-xl font-medium text-primary-blue">
-            Tambah Artikel
+            Tambah Klinik
           </h2>
           <div className="flex flex-col">
             <label htmlFor="name" className="mt-8 mb-2">
