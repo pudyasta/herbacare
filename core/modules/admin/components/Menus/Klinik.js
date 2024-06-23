@@ -198,7 +198,7 @@ const Klinik = () => {
                         }).then((result) => {
                           if (result.isConfirmed) {
                             handleDelete(result.articles_id);
-                            setData(data.filter((a) => a.id !== e.id));
+                            setData(data.filter((a) => a.id !== result.id));
                           }
                         });
                       }}
