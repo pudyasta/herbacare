@@ -138,7 +138,7 @@ const Klinik = () => {
             className=" rounded-xl q px-3 text-sm font-semibold"
             onClick={() => setOpen(true)}
           >
-            Tambah Artikel
+            Tambah Klinik
           </Button>
         </div>
         <table className="mt-10 table-auto w-full align-left border-spacing-2">
