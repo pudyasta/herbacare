@@ -68,7 +68,7 @@ const DashboardLayout = ({ children }) => {
         <div className="relative z-10 ">
           <div className="bg-green-dark text-center ">
             <h2 className="text-white uppercase text-lg py-5 font-bold">
-              herbacare
+              NATURECARE
             </h2>
           </div>
           <div className="relative z-10 px-8 my-8 flex flex-col gap-4">
