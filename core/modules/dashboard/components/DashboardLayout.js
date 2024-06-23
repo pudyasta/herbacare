@@ -100,9 +100,9 @@ const DashboardLayout = ({ children }) => {
               alt="profile image"
             />
             <div className="w-full relative">
-              <h2 className="text-md">{data.data.data.klinik_name}</h2>
+              <h2 className="text-md">{data?.data?.data?.klinik_name}</h2>
               <h3 className="break-all font-thin text-sm">
-                {data.data.data.klinik_email}
+                {data?.data?.data?.klinik_email}
               </h3>
             </div>
           </div>

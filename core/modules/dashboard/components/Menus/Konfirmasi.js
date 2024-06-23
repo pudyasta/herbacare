@@ -12,7 +12,6 @@ const Konfirmasi = () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_BE_URL}/api/article/all`)
       .then((res) => {
-        console.log(res.data.data);
         setData(res.data.data);
       })
       .catch((e) => {
