@@ -6,7 +6,7 @@ import BasicLayout from "../core/modules/common/BasicLayout";
 export default function Home() {
   return (
     <>
-      <BasicLayout title="Scanocular | Welcome">
+      <BasicLayout title="Naturecare | Welcome">
         <h1>ok</h1>
       </BasicLayout>
     </>
