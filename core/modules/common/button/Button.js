@@ -9,6 +9,7 @@ const Button = ({
   onClick,
   className,
   color,
+  id,
 }) => {
   return (
     <button
@@ -26,6 +27,7 @@ const Button = ({
       }
       onClick={onClick}
       disabled={disabled}
+      id={id}
     >
       {href && <Link tabIndex={-1} className="absolute inset-0" href={href} />}
       {children}
@@ -39,11 +41,13 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
   className: PropTypes.string,
+  id: PropTypes.string,
 };
 Button.defaultProps = {
   href: "",
   disabled: false,
   onClick: () => undefined,
   className: "",
+  id: "",
 };
 export default Button;

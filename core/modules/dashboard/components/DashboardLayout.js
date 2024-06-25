@@ -111,6 +111,7 @@ const DashboardLayout = ({ children }) => {
             className=" rounded-xl px-3 text-sm font-semibold bg-green-light w-full  text-bold relative z-50"
             color="text-green-dark"
             onClick={handleLogout}
+            id={"logoutBtn"}
           >
             Logout
           </Button>
