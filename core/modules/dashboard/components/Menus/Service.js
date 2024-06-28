@@ -58,7 +58,7 @@ const Service = () => {
   const handleDelete = (id) => {
     axios({
       method: "delete",
-      url: `${process.env.NEXT_PUBLIC_BE_URL}/api/categories/${id}`,
+      url: `${process.env.NEXT_PUBLIC_BE_URL}/api/service/${id}`,
       headers: {
         authorization: jwt,
       },
@@ -132,21 +132,6 @@ const Service = () => {
 
                   <td className="max-w-[4rem]">
                     <Button
-                      children="Edit"
-                      type="primary"
-                      className="rounded-xl text-sm py-2 px-5 bg-yellow-500 ml-1"
-                      onClick={() => {
-                        Swal.fire({
-                          title: "Revisi Data?",
-                          icon: "warning",
-                          showCancelButton: true,
-                          confirmButtonColor: "#3085d6",
-                          cancelButtonColor: "#d33",
-                          confirmButtonText: "Ya",
-                        });
-                      }}
-                    />
-                    <Button
                       children="Hapus"
                       type="primary"
                       className="rounded-xl text-sm py-2 px-5 bg-red-500 ml-1"
@@ -160,7 +145,7 @@ const Service = () => {
                           confirmButtonText: "Ya",
                         }).then((result) => {
                           if (result.isConfirmed) {
-                            handleDelete(e.category_id);
+                            handleDelete(e.service_id);
                             setData(data.filter((a) => a.id !== e.id));
                           }
                         });
@@ -191,7 +176,7 @@ const Service = () => {
               id="service"
               value={service}
               onChange={(e) => setService(e.target.value)}
-              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+              className=" border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
             />
             <label htmlFor="capacity" className="mt-8 mb-2">
               Kapasitas Per Hari
@@ -201,7 +186,7 @@ const Service = () => {
               name="capacity"
               value={capacity}
               onChange={(e) => setCapacity(e.target.value)}
-              className="border border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
+              className=" border-2 border-grey-accent p-3 rounded-xl duration-500 focus:border-primary-blue outline-none w-full"
             />
           </div>
           <Button
