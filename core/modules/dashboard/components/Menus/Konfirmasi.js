@@ -26,6 +26,41 @@ const Konfirmasi = () => {
         );
       });
   }, []);
+
+  const handleRevision = async (id) => {
+    try {
+      const response = await axios.patch(
+        `${process.env.NEXT_PUBLIC_BE_URL}/api/reservasi/confirm`,
+        {
+          reservasi_id: id,
+          status: "done",
+        },
+        {
+          headers: {
+            Authorization: jwt,
+          },
+        }
+      );
+      // Handle success, if needed
+      console.log("Reservation confirmed:", response.data);
+      setData(data.filter((a) => a.id !== id));
+    } catch (error) {
+      // Handle error, show error message, etc.
+      console.error("Error confirming reservation:", error);
+      if (error.response) {
+        Swal.fire(
+          "Error",
+          error.response.data.message || "Failed to confirm reservation",
+          "error"
+        );
+      } else if (error.request) {
+        Swal.fire("Error", "No response received from server", "error");
+      } else {
+        Swal.fire("Error", "Unexpected error occurred", "error");
+      }
+    }
+  };
+
   const parseDateToDDMMYYYY = (dateString) => {
     const date = new Date(dateString);
 
@@ -101,7 +136,8 @@ const Konfirmasi = () => {
                           confirmButtonText: "Ya",
                         }).then((result) => {
                           if (result.isConfirmed) {
-                            handleRevision(e.id);
+                            handleRevision(e.reservasi_id);
+                            // console.log(e);
                             setData(data.filter((a) => a.id !== e.id));
                           }
                         });
